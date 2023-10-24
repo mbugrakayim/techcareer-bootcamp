@@ -3,16 +3,16 @@ import ProductService from "../Services/ProductService";
 import { Link, useNavigate } from "react-router-dom";
 
 function AddProductPage() {
-  const [Name, setName] = useState("");
+  const [name, setName] = useState("");
   const [unitPrice, setUnitPrice] = useState(0);
-  const [Stock, setStock] = useState(0);
+  const [unitsInStock, setUnitsInStock] = useState(0);
   const [error, setError] = useState(false);
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
   const saveProduct = (e) => {
     e.preventDefault();
-    const product = { Name, unitPrice, Stock };
+    const product = { name, unitPrice, unitsInStock };
 
     if (!validateForm()) {
       setError(true);
@@ -31,13 +31,13 @@ function AddProductPage() {
   };
 
   const validateForm = () => {
-    if (Name === "" || unitPrice === 0 || Stock === 0) {
+    if (name === "" || unitPrice === 0 || unitsInStock === 0) {
       setMessage("Boş Alan Bırakmayın..");
       return false;
     } else if (isNaN(unitPrice)) {
       setMessage("Unit Price Sayı Girin");
       return false;
-    } else if (isNaN(Stock)) {
+    } else if (isNaN(unitsInStock)) {
       setMessage("Stock Sayı Girin");
       return false;
     }
@@ -60,7 +60,7 @@ function AddProductPage() {
                     placeholder="Name"
                     name="Name"
                     className="form-control"
-                    value={Name}
+                    value={name}
                     onChange={(e) => setName(e.target.value)}
                   />
                 </div>
@@ -82,8 +82,8 @@ function AddProductPage() {
                     placeholder="Stock"
                     name="Stock"
                     className="form-control"
-                    value={Stock}
-                    onChange={(e) => setStock(e.target.value)}
+                    value={unitsInStock}
+                    onChange={(e) => setUnitsInStock(e.target.value)}
                   />
                 </div>
                 <div className="form-group mb-2" style={{display:"flex" , justifyContent:"space-between" , alignItems:"center"}}>
