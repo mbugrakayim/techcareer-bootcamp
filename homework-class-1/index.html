@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <title>Document</title>
+
+
+</head>
+
+
+<body>
+    <ul>
+
+    </ul>
+
+</body>
+
+<script>
+
+    /*
+
+    1.  https://northwind.vercel.app/api/orders  Fetch ile çek customerId leri li  lerin arasına Yaz
+
+    */
+
+
+    async function getOrders() {
+
+        var orders = [];
+
+        await fetch("https://northwind.vercel.app/api/orders")
+            .then(res => res.json())
+            .then(data => orders = data)
+
+        return orders;
+
+
+    }
+
+    // getOrders().then(data => { 
+    //     data.forEach(e => {
+    //     var liElement = document.createElement("li");
+    //     liElement.innerText = e.customerId;
+    //     document.querySelector("ul").appendChild(liElement);
+    // })
+    // });
+
+
+    /*
+
+    Country USA olan kaç adet order var ?
+
+    */
+
+
+
+
+    // }
+
+    // getOrders().then(e => {
+    //     var usa = "usa";
+    //     var filterOrders = e.filter(a => a.shipAddress.country.toLowerCase().includes(usa.toLocaleLowerCase()))
+
+    //     console.log("Country USA Olan Toplam " + filterOrders.length + " Ülke Var");
+
+    // }
+    // )
+
+    /*
+        Order Date :
+        a - 1996 yılındaki siparişleri console yaz.
+        b- geçiken siparişleri consola yaz.
+    */
+
+
+    // 1996 Yılı
+    // getOrders().then(e => {
+
+
+    //     var filterOrders = e.filter(a => {
+    //         var date = new Date(a.orderDate);
+    //         return (date.getFullYear() === 1996);
+    //     })
+
+    //     console.log(filterOrders);
+
+
+    // })
+
+
+    //Geçiken Sipariş
+    getOrders().then(e => {
+
+
+        var filterOrders = e.filter(a => {
+            //istenen tarih
+            var date = new Date(a.requiredDate);
+            //gönderilen tarih
+            var date2 = new Date(a.shippedDate)
+
+            return (date < date2);
+        })
+
+
+        console.log(filterOrders);
+
+
+    })
+
+
+
+</script>
+
+</html>
