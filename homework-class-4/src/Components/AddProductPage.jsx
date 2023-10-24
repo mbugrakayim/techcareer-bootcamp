@@ -6,14 +6,21 @@ function AddProductPage() {
   const [Name, setName] = useState("");
   const [unitPrice, setUnitPrice] = useState(0);
   const [Stock, setStock] = useState(0);
+  const [error, setError] = useState(false);
+  const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
   const saveProduct = (e) => {
     e.preventDefault();
     const product = { Name, unitPrice, Stock };
+
+    if (!validateForm()) {
+      setError(true);
+      return;
+    }
+
     ProductService.createProducts(product)
       .then((res) => {
-        
         console.log(res.data);
         alert("Succes");
         navigate("/");
@@ -23,17 +30,31 @@ function AddProductPage() {
       });
   };
 
+  const validateForm = () => {
+    if (Name === "" || unitPrice === 0 || Stock === 0) {
+      setMessage("Boş Alan Bırakmayın..");
+      return false;
+    } else if (isNaN(unitPrice)) {
+      setMessage("Unit Price Sayı Girin");
+      return false;
+    } else if (isNaN(Stock)) {
+      setMessage("Stock Sayı Girin");
+      return false;
+    }
+    return true;
+  };
 
   return (
-    <div>
-      <div>
-        <div>
-          <div>
-            <h3>Add Product</h3>
-            <div>
+    <div style={{marginTop:'10%'}}>
+      <div className="container">
+        <div className="row">
+          <div className="card col-md-6 offset-md-3 offset-md-3">
+            <h3 className="text-center">Add Product</h3>
+            <div className="card-body">
+              {error ? <div className="alert alert-danger">{message}</div> : null}
               <form>
-                <div>
-                  <label>Name:</label>
+                <div className="form-group mb-2">
+                  <label className="form-label">Name:</label>
                   <input
                     type="text"
                     placeholder="Name"
@@ -43,10 +64,10 @@ function AddProductPage() {
                     onChange={(e) => setName(e.target.value)}
                   />
                 </div>
-                <div >
-                  <label>unitPrice:</label>
+                <div className="form-group mb-2">
+                  <label className="form-label">unitPrice:</label>
                   <input
-                    type="number"
+                    type="text"
                     placeholder="unitPrice"
                     name="unitPrice"
                     className="form-control"
@@ -54,10 +75,10 @@ function AddProductPage() {
                     onChange={(e) => setUnitPrice(e.target.value)}
                   />
                 </div>
-                <div>
-                  <label>Stock:</label>
+                <div className="form-group mb-2">
+                  <label className="form-label">Stock:</label>
                   <input
-                    type="number"
+                    type="text"
                     placeholder="Stock"
                     name="Stock"
                     className="form-control"
@@ -65,14 +86,17 @@ function AddProductPage() {
                     onChange={(e) => setStock(e.target.value)}
                   />
                 </div>
-                <button
-                  onClick={(e) => saveProduct(e)}
-                >
-                  Save
-                </button>
-                <Link to="/">
-                  Cancel
-                </Link>
+                <div className="form-group mb-2" style={{display:"flex" , justifyContent:"space-between" , alignItems:"center"}}>
+                  <button
+                    className="btn btn-success"
+                    onClick={(e) => saveProduct(e)}
+                  >
+                    Save
+                  </button>
+                  <Link to="/" className="btn btn-danger">
+                    Cancel
+                  </Link>
+                </div>
               </form>
             </div>
           </div>

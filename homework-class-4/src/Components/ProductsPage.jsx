@@ -34,10 +34,10 @@ function ProductsPage() {
   };
 
   return (
-    <div>
-      <h2>Product List</h2>
-      <div>
-        <table>
+    <div className="container" style={{marginTop : "15px"}} >
+      <h2 className="text-center">Product List</h2>
+      <div  className="row">
+        <table className="table table-striped table-bordered">
           <thead>
             <tr>
               <th>Id</th>
@@ -58,6 +58,7 @@ function ProductsPage() {
                   <button
                     onClick={() => deleteProduct(product.id)}
                     style={{ marginLeft: "10px" }}
+                    className="btn btn-warning"
                   >
                     Delete
                   </button>
