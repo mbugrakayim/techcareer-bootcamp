@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+
+    <label for="">Product ID</label>
+    <input type="text" id="prdId"/>
+
+    <button onclick="delProduct()">Delete</button>
+    
+</body>
+<script>
+
+
+    var url = "https://northwind.vercel.app/api/products/";
+
+    function delProduct(){
+
+        var proId = document.getElementById("prdId").value;
+
+        axios.delete(url+proId).then(res=>{
+            console.log("Success.. "+ proId +" Deleted.");
+        })
+
+    }
+
+</script>
+
+</html>

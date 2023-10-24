@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+
+    <h1>Products Name</h1>
+
+    <ul></ul>
+    
+</body>
+
+
+    <script>
+
+
+        var url = "https://northwind.vercel.app/api/products";
+
+        axios.get(url).then(res => {
+
+
+                var product = res.data;
+
+                product.forEach(element => {
+
+                    var liElement = document.createElement("li");
+
+                    liElement.innerText = element.name;
+
+                    document.querySelector("ul").appendChild(liElement);
+                    
+                });
+
+        })
+
+    </script>
+
+
+
+
+</html>
