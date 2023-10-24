@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+<script>
+    /*
+    
+      1) Data kaynağı: https://northwind.vercel.app/api/suppliers
+        
+        ** Company Name M harfi ile başlayan supplier console  yaz
+        
+        ** Country Japan olan kaç Supplier var?
+        
+        ** bir ul aç. Dışarıdan aldığın datayı FETCH ile içerisine doldur. Li içerisinde companyName yazacak 
+        
+    */
+
+    var url = "https://northwind.vercel.app/api/suppliers";
+
+    async function getSuppliers() {
+
+        var suppliers = [];
+
+        await fetch(url)
+            .then(res => res.json())
+            .then(data => suppliers = data)
+
+        return suppliers;
+
+
+    }
+
+    //Company Name M harfi ile Başlayan supplier Console Yaz
+
+
+    // getSuppliers().then(e =>{
+
+
+    //     var filterSuppliers = e.filter(m => m.companyName.startsWith('M'));
+
+    //     console.log(filterSuppliers);
+
+    // })
+
+
+
+
+    //Country Japan olan Kaç Supplier Var ?
+
+    // getSuppliers().then(e => {
+
+
+    //     var Japan = "Japan";
+    //     var filterSuppliers = e.filter(a => a.address.country === Japan)
+
+    //     console.log("Country Japan Olan Toplam " + filterSuppliers.length + " Ülke Var");
+
+    // }
+    // )
+
+
+    //bir ul aç. Dışarıdan aldığın datayı FETCH ile içerisine doldur. Li içerisinde companyName yazacak 
+
+
+
+    getSuppliers().then(data => {
+
+        var ulElement = document.createElement("ul");
+
+        data.forEach(e => {
+            var liElement = document.createElement("li");
+            liElement.innerText = e.companyName;
+            ulElement.appendChild(liElement);
+        })
+
+        document.body.appendChild(ulElement);
+    });
+
+
+</script>
+
+</html>
